@@ -1,23 +1,39 @@
 Ext.application({
     name: 'WP',
-
+    requires: [
+        'WP.view.ComboBox1', 'WP.view.ComboBox2'
+    ],
     launch: function() {
+
+        var store = Ext.create('Ext.data.Store', {
+            autoLoad : true,
+            fields : [
+                {name : 'id', type : 'int'},
+                {name : 'currency', type : 'string'}
+            ],
+            data : [
+                {"id" : 0, "currency" : "USD"},
+                {"id" : 1, "currency" : "EUR"},
+                {"id" : 2, "currency" : "RUR"}
+            ]
+        });
+
         var myPanel = Ext.create('Ext.Viewport', {
             title: 'Welcome!',
             layout:'border',
+            cls: 'panelBackground',
             defaults: {
                 collapsible: true,
                 split: true,
-                bodyStyle: 'padding:15px'
+                bodyStyle: 'padding: 15px'
             },
             items: [{
+                title: 'Main panel',
                 region: 'north',
+                xtype: 'panel',
                 collapsible: true,
                 height: 150,
-                minSize: 75,
-                maxSize: 250,
-                cmargins: '5 0 0 0',
-                title: 'Main panel',
+                margin: '30 30 0 30',
                 items: [{
                     xtype: 'fieldcontainer',
                     fieldLabel: 'Check state',
@@ -29,12 +45,12 @@ Ext.application({
                         handler: function(field, value) {
                             if (value) {
                                 Ext.getCmp('cb1').show();
-                                Ext.getCmp('hideablePanel').show();
                                 Ext.getCmp('checkbox2').setDisabled(true);
+                                Ext.getCmp('image1').hide();
                             } else {
                                 Ext.getCmp('cb1').hide();
-                                Ext.getCmp('hideablePanel').hide();
                                 Ext.getCmp('checkbox2').setDisabled(false);
+                                Ext.getCmp('image1').show();
                             }
                         }
                     }, {
@@ -44,12 +60,12 @@ Ext.application({
                         handler: function(field, value) {
                             if (value) {
                                 Ext.getCmp('cb2').show();
-                                Ext.getCmp('hideablePanel').show();
                                 Ext.getCmp('checkbox1').setDisabled(true);
+                                Ext.getCmp('image1').hide();
                             } else {
                                 Ext.getCmp('cb2').hide();
-                                Ext.getCmp('hideablePanel').hide();
                                 Ext.getCmp('checkbox1').setDisabled(false);
+                                Ext.getCmp('image1').show();
                             }
                         }
                     }]
@@ -57,150 +73,28 @@ Ext.application({
             },  {
                 title: 'Operation',
                 region: 'center',
+                xtype: 'panel',
                 id: 'hideablePanel',
-                height: 150,
-                minSize: 75,
-                maxSize: 250,
-                cmargins: '5 0 0 0',
-                hidden: true,
+                collapsible: false,
+                margin: '4 30 30 30',
                 items: [{
+                    xtype: 'image',
+                    id: 'image1',
+                    src: 'welcome_hey.jpg',
+                },  {
+                    xtype: 'comboBox1',
                     id: 'cb1',
                     title: 'Sell',
-                    xtype: 'panel',
-                    hidden: true,
-                    items: [{
-                        xtype: 'label',
-                        text: 'amount'
-                    }, {
-                        xtype: 'textfield',
-                        name: 'amount field',
-                        id: 'amount',
-                        style: {
-                            width: '50%',
-                            margin: 'auto',
-                        },
-                        listeners: {
-                            'change': function(){
-                             Ext.getCmp('result').setValue(Ext.getCmp('amount').getValue() * Ext.getCmp('rate').getValue());
-                            }
-                        }
-                    }, {
-                        xtype: 'label',
-                        text: 'rate label'
-                    }, {
-                        xtype: 'textfield',
-                        id: 'rate',
-                        name: 'rate label',
-                        value: 0.8,
-                        style: {
-                            width: '50%',
-                            margin: 'auto'
-                        },
-                        listeners: {
-                            'change': function(){
-                             Ext.getCmp('result').setValue(Ext.getCmp('amount').getValue() * Ext.getCmp('rate').getValue());
-                            }
-                        }
-                    }, {
-                        xtype: 'label',
-                        text: 'result sum label'
-                    }, {
-                        xtype: 'textfield',
-                        id: 'result',
-                        name: 'result sum label',
-                        style: {
-                            width: '50%',
-                            margin: 'auto'
-                        }
-                    }]
+                    hidden: true
                 }, {
+                    xtype: 'comboBox2',
                     id: 'cb2',
-                    xtype: 'panel',
                     title: 'Buy',
-                    hidden: true,
-                    items: [{
-                        xtype: 'label',
-                        text: 'First name'
-                    }, {
-                        xtype: 'textfield',
-                        name: 'first name field',
-                        id: 'first',
-                        style: {
-                            width: '50%',
-                            margin: 'auto'
-                        }
-                    }, {
-                        xtype: 'label',
-                        text: 'Last name'
-                    }, {
-                        xtype: 'textfield',
-                        name: 'last name field',
-                        id: 'last',
-                        style: {
-                            width: '50%',
-                            margin: 'auto'
-                        }
-                    }, {
-                        xtype: 'label',
-                        text: 'Age'
-                    }, {
-                        xtype: 'textfield',
-                        name: 'age field',
-                        id: 'age',
-                        style: {
-                            width: '50%',
-                            margin: 'auto'
-                        }
-                    }, {
-                        xtype: 'label',
-                        text: 'amount'
-                    }, {
-                        xtype: 'textfield',
-                        name: 'amount field',
-                        id: 'amount2',
-                        style: {
-                            width: '50%',
-                            margin: 'auto'
-                        },
-                        listeners: {
-                            'change': function(){
-                             Ext.getCmp('result2').setValue(Ext.getCmp('amount2').getValue() * Ext.getCmp('rate2').getValue());
-                            }
-                        }
-                    }, {
-                        xtype: 'label',
-                        text: 'rate label'
-                    }, {
-                        xtype: 'textfield',
-                        id: 'rate2',
-                        name: 'rate label',
-                        value: 1.2,
-                        style: {
-                            width: '50%',
-                            margin: 'auto'
-                        },
-                        listeners: {
-                            'change': function(){
-                             Ext.getCmp('result2').setValue(Ext.getCmp('amount2').getValue() * Ext.getCmp('rate2').getValue());
-                            }
-                        }
-                    }, {
-                        xtype: 'label',
-                        text: 'result sum label'
-                    }, {
-                        xtype: 'textfield',
-                        id: 'result2',
-                        name: 'result sum label',
-                        style: {
-                            width: '50%',
-                            margin: 'auto'
-                        }
-                    }]
+                    hidden: true
                 }],
             }],
 
             renderTo: Ext.getBody()
         });
     },
-
 });
