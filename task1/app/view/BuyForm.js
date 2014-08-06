@@ -67,12 +67,12 @@ Ext.define('MyApp.view.BuyForm', {
         },  {
             xtype: 'combo',
             fieldLabel: 'Currency',
-            queryMode:'local',
-            store : Ext.create('MyApp.store.Currency'),
+            queryMode: 'local',
+            store: Ext.create('MyApp.store.Currency'),
             displayField: 'currency',
-            valueField : 'id',
-            autoSelect:true,
-            forceSelection:true,
+            valueField: 'id',
+            autoSelect: true,
+            forceSelection: true,
             style: {
                 margin: '10px 0 0 50px',
             },
