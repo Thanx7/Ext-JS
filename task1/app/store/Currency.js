@@ -8,5 +8,6 @@ Ext.define('MyApp.store.Currency', {
 	    {"id" : 0, "currency" : "USD"},
 	    {"id" : 1, "currency" : "EUR"},
 	    {"id" : 2, "currency" : "RUR"}
-	]
+	],
+	autoLoad: true
 });

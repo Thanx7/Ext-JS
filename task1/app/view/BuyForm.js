@@ -8,61 +8,33 @@ Ext.define('MyApp.view.BuyForm', {
       },
       
       items: [{
-            xtype: 'label',
-            text: 'First name',
-            style: {
-                margin: '10px 0 0 50px',
-            }
-        }, {
             xtype: 'textfield',
-            id: 'first',
+            fieldLabel: 'First name',
             style: {
                 width: '50%',
                 margin: 'auto'
             }
         }, {
-            xtype: 'label',
-            text: 'Last name',
-            style: {
-                margin: '10px 0 0 50px',
-            }
-        }, {
             xtype: 'textfield',
-            id: 'last',
+            fieldLabel: 'Last name',
             style: {
                 width: '50%',
                 margin: 'auto'
             }
         }, {
-            xtype: 'label',
-            text: 'Age',
-            style: {
-                margin: '10px 0 0 50px',
-            }
-        }, {
             xtype: 'textfield',
-            id: 'age',
+            fieldLabel: 'Age',
             style: {
                 width: '50%',
                 margin: 'auto'
             }
         }, {
-            xtype: 'label',
-            text: 'amount',
-            style: {
-                margin: '10px 0 0 50px',
-            }
-        }, {
             xtype: 'textfield',
-            id: 'amount2',
+            fieldLabel: 'amount',
+            itemId: 'amount',
             style: {
                 width: '50%',
                 margin: 'auto'
-            },
-            listeners: {
-                'change': function(){
-                 Ext.getCmp('result2').setValue(Ext.getCmp('amount2').getValue() * Ext.getCmp('rate2').getValue());
-                }
             }
         },  {
             xtype: 'combo',
@@ -75,53 +47,26 @@ Ext.define('MyApp.view.BuyForm', {
             forceSelection: true,
             style: {
                 margin: '10px 0 0 50px',
-            },
-            listeners: {
-                'change' : function(combo, newvalue, oldvalue) {
-                if (newvalue === 0) {
-                    Ext.getCmp('rate2').setValue(10340);
-                }
-                if (newvalue === 1) {
-                    Ext.getCmp('rate2').setValue(13880);
-                }
-                if (newvalue === 2) {
-                    Ext.getCmp('rate2').setValue(289.50);
-                }                                                        
-            }}
+            }
         }, {
             xtype: 'splitter',
             style: {
                 margin: '20px',
             }
         },  {
-            xtype: 'label',
-            text: 'rate',
-            style: {
-                margin: '10px 0 0 50px',
-            }
-        }, {
             xtype: 'textfield',
-            id: 'rate2',
+            fieldLabel: 'rate',
+            itemId: 'rate',
             readOnly: true,
             name: 'rate label',
             style: {
                 width: '50%',
                 margin: 'auto'
-            },
-            listeners: {
-                'change': function(){
-                 Ext.getCmp('result2').setValue(Ext.getCmp('amount2').getValue() * Ext.getCmp('rate2').getValue());
-                }
             }
-        }, {
-            xtype: 'label',
-            text: 'result sum',
-            style: {
-                margin: '10px 0 0 50px',
-            }
-        }, {
+        },  {
             xtype: 'textfield',
-            id: 'result2',
+            fieldLabel: 'result sum',
+            itemId: 'result',
             readOnly: true,
             style: {
                 width: '50%',
@@ -129,20 +74,38 @@ Ext.define('MyApp.view.BuyForm', {
             }
         }, {
             xtype: 'button',
-            id: 'button2',
             text: 'Submit',
             style: {
                 width: '20%',
                 margin: '50px'
-            },
-            listeners: {
-                'click': function(){
-                Ext.getCmp('cb2').hide();
-                Ext.getCmp('checkbox2').setValue(false);
-                Ext.getCmp('checkbox1').setDisabled(false);
-                Ext.getCmp('image1').show();
-                }
             }
         }],
 
+        initComponent: function() {
+            var me = this;
+            me.callParent(arguments);
+            me.down('button').addListener('click', function(btn){
+                btn.up('buyForm').hide();
+                Ext.getCmp('checkbox2').setValue(false);
+                Ext.getCmp('checkbox1').setDisabled(false);
+                Ext.getCmp('image1').show();
+            });
+
+            me.down('#amount').addListener('change', function(){
+                me.down('#result').setValue(me.down('#amount').getValue() * me.down('#rate').getValue());
+            });
+
+            me.down('combo').addListener('change', function(combo, newvalue, oldvalue) {
+                if (newvalue === 0) {
+                    me.down('#rate').setValue(10340);
+                }
+                if (newvalue === 1) {
+                    me.down('#rate').setValue(13880);
+                }
+                if (newvalue === 2) {
+                    me.down('#rate').setValue(289.50);
+                }
+                me.down('#result').setValue(me.down('#amount').getValue() * me.down('#rate').getValue());
+            });
+        }
 });
