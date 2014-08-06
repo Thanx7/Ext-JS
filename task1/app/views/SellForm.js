@@ -11,9 +11,9 @@ data : [
 ]
 });
 
-Ext.define('WP.view.ComboBox1', {
+Ext.define('MyApp.views.SellForm', {
     extend: 'Ext.container.Container',
-    alias: 'widget.comboBox1',
+    alias: 'widget.sellForm',
 
     layout: {
         type: 'fit'

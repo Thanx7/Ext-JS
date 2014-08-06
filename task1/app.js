@@ -1,11 +1,9 @@
 Ext.application({
-    name: 'WP',
-    requires: [
-        'WP.view.ComboBox1', 'WP.view.ComboBox2'
-    ],
+    name: 'MyApp',
+    requires: [ 'MyApp.views.SellForm', 'MyApp.views.BuyForm' ],
     launch: function() {
 
-        var store = Ext.create('Ext.data.Store', {
+        var currencyStore = Ext.create('Ext.data.Store', {
             autoLoad : true,
             fields : [
                 {name : 'id', type : 'int'},
@@ -82,19 +80,18 @@ Ext.application({
                     id: 'image1',
                     src: 'welcome_hey.jpg',
                 },  {
-                    xtype: 'comboBox1',
+                    xtype: 'sellForm',
                     id: 'cb1',
                     title: 'Sell',
                     hidden: true
                 }, {
-                    xtype: 'comboBox2',
+                    xtype: 'buyForm',
                     id: 'cb2',
                     title: 'Buy',
                     hidden: true
                 }],
             }],
 
-            renderTo: Ext.getBody()
         });
     },
 });
