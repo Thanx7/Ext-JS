@@ -1,20 +1,7 @@
 Ext.application({
     name: 'MyApp',
-    requires: [ 'MyApp.views.SellForm', 'MyApp.views.BuyForm' ],
+    requires: [ 'MyApp.view.SellForm', 'MyApp.view.BuyForm' ],
     launch: function() {
-
-        var currencyStore = Ext.create('Ext.data.Store', {
-            autoLoad : true,
-            fields : [
-                {name : 'id', type : 'int'},
-                {name : 'currency', type : 'string'}
-            ],
-            data : [
-                {"id" : 0, "currency" : "USD"},
-                {"id" : 1, "currency" : "EUR"},
-                {"id" : 2, "currency" : "RUR"}
-            ]
-        });
 
         var myPanel = Ext.create('Ext.Viewport', {
             title: 'Welcome!',
