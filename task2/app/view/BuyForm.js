@@ -1,23 +1,30 @@
 Ext.define('MyApp.view.BuyForm', {
-    extend: 'Ext.container.Container',
+    extend: 'Ext.form.Panel',
     alias: 'widget.buyForm',
     requires: [ 'MyApp.store.Currency' ],
       
       items: [{
             xtype: 'textfield',
             fieldLabel: 'First name',
+            itemId: 'fName'
         }, {
             xtype: 'textfield',
             fieldLabel: 'Last name',
+            itemId: 'lName',
         }, {
-            xtype: 'textfield',
+            xtype: 'numberfield',
             fieldLabel: 'Age',
+            itemId: 'age',
+            minValue: 0
         }, {
-            xtype: 'textfield',
+            xtype: 'numberfield',
             fieldLabel: 'amount',
-            itemId: 'amount',
+            itemId: 'buyAmount',
+            value: '0',
+            minValue: 0
         },  {
             xtype: 'combo',
+            itemId: 'buyCombo',
             fieldLabel: 'Currency',
             store: Ext.create('MyApp.store.Currency'),
             displayField: 'currency',
@@ -27,16 +34,15 @@ Ext.define('MyApp.view.BuyForm', {
         }, {
             xtype: 'splitter',
         },  {
-            xtype: 'textfield',
+            xtype: 'displayfield',
             fieldLabel: 'rate',
-            itemId: 'rate',
-            readOnly: true,
-            name: 'rate label',
+            itemId: 'buyRate',
+            value: '0'
         },  {
-            xtype: 'textfield',
+            xtype: 'displayfield',
             fieldLabel: 'result sum',
-            itemId: 'result',
-            readOnly: true,
+            itemId: 'buyResult',
+            value: '0'
         }, {
             xtype: 'button',
             text: 'Submit',
@@ -51,23 +57,31 @@ Ext.define('MyApp.view.BuyForm', {
                 top.down('#checkbox2').setValue(false);
                 top.down('#checkbox1').setDisabled(false);
                 top.down('image').show();
+
+                top.down('#fName').setValue('');
+                top.down('#lName').setValue('');
+                top.down('#age').setValue('');
+                top.down('#buyAmount').setValue('0');
+                top.down('#buyRate').setValue('0');
+                top.down('#buyResult').setValue('0');
+                top.down('#buyCombo').setValue('');                
             });
 
-            me.down('#amount').addListener('change', function(){
-                me.down('#result').setValue(me.down('#amount').getValue() * me.down('#rate').getValue());
+            me.down('#buyAmount').addListener('change', function(){
+                me.down('#buyResult').setValue(me.down('#buyAmount').getValue() * me.down('#buyRate').getValue());
             });
 
             me.down('combo').addListener('change', function(combo, newvalue, oldvalue) {
                 if (newvalue === 0) {
-                    me.down('#rate').setValue(10340);
+                    me.down('#buyRate').setValue(10340);
                 }
                 if (newvalue === 1) {
-                    me.down('#rate').setValue(13880);
+                    me.down('#buyRate').setValue(13880);
                 }
                 if (newvalue === 2) {
-                    me.down('#rate').setValue(289.50);
+                    me.down('#buyRate').setValue(289.50);
                 }
-                me.down('#result').setValue(me.down('#amount').getValue() * me.down('#rate').getValue());
+                me.down('#buyResult').setValue(me.down('#buyAmount').getValue() * me.down('#buyRate').getValue());
             });
         }
 });

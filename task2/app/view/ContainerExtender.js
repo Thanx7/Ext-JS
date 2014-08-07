@@ -13,7 +13,7 @@ Ext.define('MyApp.view.ContainerExtender', {
         xtype: 'panel',
         collapsed: false,
         collapsible: true,
-        height: 100,
+        height: 130,
         margin: '30 30 0 30',
         items: [{
             xtype: 'fieldcontainer',
@@ -51,6 +51,9 @@ Ext.define('MyApp.view.ContainerExtender', {
                         top.down('image').show();
                     }
                 }
+            }, {
+                xtype: 'button',
+                text: 'View operations'
             }]
         }]
     },  {

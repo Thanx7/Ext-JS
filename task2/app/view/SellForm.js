@@ -1,14 +1,17 @@
 Ext.define('MyApp.view.SellForm', {
-    extend: 'Ext.container.Container',
+    extend: 'Ext.form.Panel',
     alias: 'widget.sellForm',
     requires: [ 'MyApp.store.Currency' ],
       
       items: [{
-            xtype: 'textfield',
+            xtype: 'numberfield',
             fieldLabel: 'amount',
-            itemId: 'amount'
+            itemId: 'sellAmount',
+            value: '0',
+            minValue: 0
         },{
             xtype: 'combo',
+            itemId: 'sellCombo',            
             fieldLabel: 'Currency',
             store: Ext.create('MyApp.store.Currency'),
             displayField: 'currency',
@@ -18,19 +21,18 @@ Ext.define('MyApp.view.SellForm', {
         }, , {
             xtype: 'splitter'
         }, {
-            xtype: 'textfield',
+            xtype: 'displayfield',
             fieldLabel: 'rate',
-            itemId: 'rate',
-            readOnly: true
+            itemId: 'sellRate',
+            value: '0'
         }, {
-            xtype: 'textfield',
+            xtype: 'displayfield',
             fieldLabel: 'result sum',
-            itemId: 'result',
-            readOnly: true,
+            itemId: 'sellResult',
+            value: '0'
         }, {
             xtype: 'button',
-            itemId: 'sellBtn',
-            text: 'Submit',
+            text: 'Submit'
         }],
 
         initComponent: function() {
@@ -42,23 +44,28 @@ Ext.define('MyApp.view.SellForm', {
                 top.down('#checkbox1').setValue(false);
                 top.down('#checkbox2').setDisabled(false);
                 top.down('image').show();
+
+                top.down('#sellAmount').setValue('0');
+                top.down('#sellRate').setValue('0');
+                top.down('#sellResult').setValue('0');
+                top.down('#sellCombo').setValue(''); 
             });
 
-            me.down('#amount').addListener('change', function(){
-                me.down('#result').setValue(me.down('#amount').getValue() * me.down('#rate').getValue());
+            me.down('#sellAmount').addListener('change', function(){
+                me.down('#sellResult').setValue(me.down('#sellAmount').getValue() * me.down('#sellRate').getValue());
             });
 
             me.down('combo').addListener('change', function(combo, newvalue, oldvalue) {
                 if (newvalue === 0) {
-                    me.down('#rate').setValue(10340);
+                    me.down('#sellRate').setValue(10340);
                 }
                 if (newvalue === 1) {
-                    me.down('#rate').setValue(13880);
+                    me.down('#sellRate').setValue(13880);
                 }
                 if (newvalue === 2) {
-                    me.down('#rate').setValue(289.50);
+                    me.down('#sellRate').setValue(289.50);
                 }
-                me.down('#result').setValue(me.down('#amount').getValue() * me.down('#rate').getValue());
+                me.down('#sellResult').setValue(me.down('#sellAmount').getValue() * me.down('#sellRate').getValue());
             });
         }
 });
