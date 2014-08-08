@@ -1,7 +1,7 @@
 Ext.define('MyApp.view.ContainerExtender', {
     extend: 'Ext.container.Container',
     alias: 'widget.containerExtender',
-    requires: [ 'MyApp.view.SellForm', 'MyApp.view.BuyForm' ],
+    requires: [ 'MyApp.view.SellForm', 'MyApp.view.BuyForm', 'MyApp.view.Grid' ],
 
     layout: {
         type: 'border',
@@ -74,6 +74,10 @@ Ext.define('MyApp.view.ContainerExtender', {
             title: 'Buy',
             hidden: true
         }],
-    }],
-
+    },  {
+        title: 'Log',
+        region: 'south',
+        xtype: 'grid',
+        margin: '0 30 30 30'
+    }]
 });

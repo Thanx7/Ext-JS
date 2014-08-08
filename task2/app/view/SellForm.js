@@ -6,6 +6,7 @@ Ext.define('MyApp.view.SellForm', {
       items: [{
             xtype: 'numberfield',
             fieldLabel: 'amount',
+            name: 'amount',
             itemId: 'sellAmount',
             value: '0',
             minValue: 0
@@ -37,9 +38,26 @@ Ext.define('MyApp.view.SellForm', {
 
         initComponent: function() {
             var me = this;
+            var amount, operation, rate, result = 0;
+
             me.callParent(arguments);
             me.down('button').addListener('click', function(btn){
-                var top = btn.up().up().up();
+                var form = btn.up(); 
+                var top = form.up().up();
+                var st = top.down('grid').getStore();
+                var newModel = Ext.ModelManager.create({
+                    operation: operation,
+                    date: new Date(),
+                    type: "Sell",
+                    amount: amount,
+                    rate: rate,
+                    result: result
+                }, 'MyApp.model.Log');
+
+                if (result !== 0) {
+                    st.add(newModel);
+                }
+
                 btn.up().hide();
                 top.down('#checkbox1').setValue(false);
                 top.down('#checkbox2').setDisabled(false);
@@ -48,24 +66,33 @@ Ext.define('MyApp.view.SellForm', {
                 top.down('#sellAmount').setValue('0');
                 top.down('#sellRate').setValue('0');
                 top.down('#sellResult').setValue('0');
-                top.down('#sellCombo').setValue(''); 
+                top.down('#sellCombo').setValue('');
             });
 
             me.down('#sellAmount').addListener('change', function(){
-                me.down('#sellResult').setValue(me.down('#sellAmount').getValue() * me.down('#sellRate').getValue());
+                amount = me.down('#sellAmount').getValue()
+                result = amount * me.down('#sellRate').getValue();
+                me.down('#sellResult').setValue(result);
             });
 
             me.down('combo').addListener('change', function(combo, newvalue, oldvalue) {
                 if (newvalue === 0) {
-                    me.down('#sellRate').setValue(10340);
+                    operation = "USD";
+                    rate = 10350;
+                    me.down('#sellRate').setValue(rate);
                 }
                 if (newvalue === 1) {
-                    me.down('#sellRate').setValue(13880);
+                    operation = "EUR";
+                    rate = 13860;
+                    me.down('#sellRate').setValue(rate);
                 }
                 if (newvalue === 2) {
-                    me.down('#sellRate').setValue(289.50);
+                    operation = "RUR";
+                    rate = 284.50;
+                    me.down('#sellRate').setValue(rate);
                 }
-                me.down('#sellResult').setValue(me.down('#sellAmount').getValue() * me.down('#sellRate').getValue());
+                result = me.down('#sellAmount').getValue() * me.down('#sellRate').getValue();
+                me.down('#sellResult').setValue(result);
             });
         }
 });
