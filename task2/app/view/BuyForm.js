@@ -50,10 +50,27 @@ Ext.define('MyApp.view.BuyForm', {
 
         initComponent: function() {
             var me = this;
+            var amount, operation, rate, result = 0;
+
             me.callParent(arguments);
             me.down('button').addListener('click', function(btn){
-                var top = btn.up().up().up();
-                btn.up().hide();
+                var form = btn.up(); 
+                var top = form.up().up();
+                var st = top.down('grid').getStore();
+                var newModel = Ext.ModelManager.create({
+                    operation: operation,
+                    date: new Date(),
+                    type: "Buy",
+                    amount: amount,
+                    rate: rate,
+                    result: result
+                }, 'MyApp.model.Log');
+
+                if (result !== 0) {
+                    st.add(newModel);
+                }
+
+                form.hide();
                 top.down('#checkbox2').setValue(false);
                 top.down('#checkbox1').setDisabled(false);
                 top.down('image').show();
@@ -68,20 +85,29 @@ Ext.define('MyApp.view.BuyForm', {
             });
 
             me.down('#buyAmount').addListener('change', function(){
-                me.down('#buyResult').setValue(me.down('#buyAmount').getValue() * me.down('#buyRate').getValue());
+                amount = me.down('#buyAmount').getValue();
+                result = amount * me.down('#buyRate').getValue();
+                me.down('#buyResult').setValue(result);
             });
 
             me.down('combo').addListener('change', function(combo, newvalue, oldvalue) {
                 if (newvalue === 0) {
-                    me.down('#buyRate').setValue(10340);
+                    operation = "USD";
+                    rate = 10350;
+                    me.down('#buyRate').setValue(rate);
                 }
                 if (newvalue === 1) {
-                    me.down('#buyRate').setValue(13880);
+                    operation = "EUR";
+                    rate = 13860;
+                    me.down('#buyRate').setValue(rate);
                 }
                 if (newvalue === 2) {
-                    me.down('#buyRate').setValue(289.50);
+                    operation = "RUR";
+                    rate = 284.50;
+                    me.down('#buyRate').setValue(rate);
                 }
-                me.down('#buyResult').setValue(me.down('#buyAmount').getValue() * me.down('#buyRate').getValue());
+                result = me.down('#buyAmount').getValue() * me.down('#buyRate').getValue();
+                me.down('#buyResult').setValue(result);
             });
         }
 });

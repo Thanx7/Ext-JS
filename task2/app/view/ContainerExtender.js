@@ -53,7 +53,17 @@ Ext.define('MyApp.view.ContainerExtender', {
                 }
             }, {
                 xtype: 'button',
-                text: 'View operations'
+                text: 'View operations',
+                handler: function(e) {
+                    var top = e.up().up().up();
+                    if (e.getText() == 'View operations') {
+                        top.down('grid').show();
+                        e.setText('Hide operations');
+                    } else {
+                        top.down('grid').hide();
+                        e.setText('View operations');
+                    }
+                }
             }]
         }]
     },  {
@@ -78,6 +88,7 @@ Ext.define('MyApp.view.ContainerExtender', {
         title: 'Log',
         region: 'south',
         xtype: 'grid',
-        margin: '0 30 30 30'
+        margin: '0 30 30 30',
+        hidden: true
     }]
 });

@@ -6,7 +6,6 @@ Ext.define('MyApp.view.SellForm', {
       items: [{
             xtype: 'numberfield',
             fieldLabel: 'amount',
-            name: 'amount',
             itemId: 'sellAmount',
             value: '0',
             minValue: 0
@@ -58,7 +57,7 @@ Ext.define('MyApp.view.SellForm', {
                     st.add(newModel);
                 }
 
-                btn.up().hide();
+                form.hide();
                 top.down('#checkbox1').setValue(false);
                 top.down('#checkbox2').setDisabled(false);
                 top.down('image').show();
@@ -70,7 +69,7 @@ Ext.define('MyApp.view.SellForm', {
             });
 
             me.down('#sellAmount').addListener('change', function(){
-                amount = me.down('#sellAmount').getValue()
+                amount = me.down('#sellAmount').getValue();
                 result = amount * me.down('#sellRate').getValue();
                 me.down('#sellResult').setValue(result);
             });
