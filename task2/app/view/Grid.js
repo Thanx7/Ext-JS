@@ -4,11 +4,31 @@ Ext.define('MyApp.view.Grid', {
     requires: [ 'MyApp.store.Log' ],
     store: Ext.create('MyApp.store.Log'),
     columns: [
-        { text: 'Operation',  dataIndex: 'operation' },
-        { text: 'Date', dataIndex: 'date', width: 400 },
-        { text: 'Type', dataIndex: 'type' },
-        { text: 'Amount', dataIndex: 'amount' },
-        { text: 'Rate', dataIndex: 'rate' },
-        { text: 'Result sum', dataIndex: 'result' },
+        { 
+            text: 'Operation',
+            dataIndex: 'operation',
+            flex: 1
+        }, { 
+            text: 'Date',
+            dataIndex: 'date',
+            renderer: Ext.util.Format.dateRenderer('j F Y'),
+            flex: 1
+        }, {
+            text: 'Type',
+            dataIndex: 'type',
+            flex: 1
+        }, {
+            text: 'Amount',
+            dataIndex: 'amount',
+            flex: 1
+        }, {
+            text: 'Rate',
+            dataIndex: 'rate',
+            flex: 1
+        }, {
+            text: 'Result sum',
+            dataIndex: 'result',
+            flex: 1
+        },
     ],
 });

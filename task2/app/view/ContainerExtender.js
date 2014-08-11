@@ -14,7 +14,8 @@ Ext.define('MyApp.view.ContainerExtender', {
         collapsed: false,
         collapsible: true,
         height: 130,
-        margin: '30 30 0 30',
+        margin: '10 30 10 30',
+        flex: 2,
         items: [{
             xtype: 'fieldcontainer',
             fieldLabel: 'Check state',
@@ -38,7 +39,8 @@ Ext.define('MyApp.view.ContainerExtender', {
         region: 'center',
         xtype: 'panel',
         collapsible: false,
-        margin: '30 30 30 30',
+        margin: '0 30 10 30',
+        flex: 4,
         items: [{
             xtype: 'image',
             src: 'resources/images/welcome_hey.jpg',
@@ -52,10 +54,11 @@ Ext.define('MyApp.view.ContainerExtender', {
             hidden: true
         }],
     },  {
-        title: 'Log',
+        title: 'View operations',
         region: 'south',
         xtype: 'grid',
-        margin: '0 30 30 30',
-        hidden: true
+        margin: '0 30 10 30',
+        hidden: true,
+        flex: 5
     }]
 });

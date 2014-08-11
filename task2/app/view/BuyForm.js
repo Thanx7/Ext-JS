@@ -94,19 +94,17 @@ Ext.define('MyApp.view.BuyForm', {
                 if (newvalue === 0) {
                     operation = "USD";
                     rate = 10350;
-                    me.down('#buyRate').setValue(rate);
                 }
                 if (newvalue === 1) {
                     operation = "EUR";
                     rate = 13860;
-                    me.down('#buyRate').setValue(rate);
                 }
                 if (newvalue === 2) {
                     operation = "RUR";
                     rate = 284.50;
-                    me.down('#buyRate').setValue(rate);
                 }
-                result = me.down('#buyAmount').getValue() * me.down('#buyRate').getValue();
+                result = me.down('#buyAmount').getValue() * rate;                
+                me.down('#buyRate').setValue(rate);
                 me.down('#buyResult').setValue(result);
             });
         }

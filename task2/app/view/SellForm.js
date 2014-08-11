@@ -78,19 +78,17 @@ Ext.define('MyApp.view.SellForm', {
                 if (newvalue === 0) {
                     operation = "USD";
                     rate = 10350;
-                    me.down('#sellRate').setValue(rate);
                 }
                 if (newvalue === 1) {
                     operation = "EUR";
                     rate = 13860;
-                    me.down('#sellRate').setValue(rate);
                 }
                 if (newvalue === 2) {
                     operation = "RUR";
                     rate = 284.50;
-                    me.down('#sellRate').setValue(rate);
                 }
-                result = me.down('#sellAmount').getValue() * me.down('#sellRate').getValue();
+                result = me.down('#sellAmount').getValue() * rate;
+                me.down('#sellRate').setValue(rate);
                 me.down('#sellResult').setValue(result);
             });
         }
