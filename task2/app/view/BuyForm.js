@@ -6,23 +6,27 @@ Ext.define('MyApp.view.BuyForm', {
       items: [{
             xtype: 'textfield',
             fieldLabel: 'First name',
-            itemId: 'fName'
+            itemId: 'fName',
+            margin: '3 0 0 10'
         }, {
             xtype: 'textfield',
             fieldLabel: 'Last name',
             itemId: 'lName',
+            margin: '3 0 0 10'
         }, {
             xtype: 'numberfield',
             fieldLabel: 'Age',
             itemId: 'age',
-            minValue: 0
+            minValue: 0,
+            margin: '3 0 0 10'
         }, {
             xtype: 'numberfield',
             fieldLabel: 'amount',
             itemId: 'buyAmount',
             value: '0',
-            minValue: 0
-        },  {
+            minValue: 0,
+            margin: '3 0 0 10'
+        }, {
             xtype: 'combo',
             itemId: 'buyCombo',
             fieldLabel: 'Currency',
@@ -31,21 +35,23 @@ Ext.define('MyApp.view.BuyForm', {
             valueField: 'id',
             autoSelect: true,
             forceSelection: true,
+            margin: '3 0 0 10'
         }, {
-            xtype: 'splitter',
-        },  {
             xtype: 'displayfield',
             fieldLabel: 'rate',
             itemId: 'buyRate',
-            value: '0'
-        },  {
+            value: '0',
+            margin: '3 0 0 10'
+        }, {
             xtype: 'displayfield',
             fieldLabel: 'result sum',
             itemId: 'buyResult',
-            value: '0'
+            value: '0',
+            margin: '3 0 0 10'
         }, {
             xtype: 'button',
             text: 'Submit',
+            margin: '3 0 0 10'
         }],
 
         initComponent: function() {
@@ -78,10 +84,9 @@ Ext.define('MyApp.view.BuyForm', {
                 top.down('#fName').setValue('');
                 top.down('#lName').setValue('');
                 top.down('#age').setValue('');
-                top.down('#buyAmount').setValue('0');
-                top.down('#buyRate').setValue('0');
-                top.down('#buyResult').setValue('0');
-                top.down('#buyCombo').setValue('');                
+                top.down('#buyCombo').setValue('');
+                top.down('#buyAmount').setValue(0);
+                top.down('#buyRate').setValue(0);
             });
 
             me.down('#buyAmount').addListener('change', function(){
@@ -103,7 +108,7 @@ Ext.define('MyApp.view.BuyForm', {
                     operation = "RUR";
                     rate = 284.50;
                 }
-                result = me.down('#buyAmount').getValue() * rate;                
+                result = me.down('#buyAmount').getValue() * rate;
                 me.down('#buyRate').setValue(rate);
                 me.down('#buyResult').setValue(result);
             });

@@ -4,7 +4,7 @@ Ext.define('MyApp.view.ContainerExtender', {
     requires: [ 'MyApp.view.SellForm', 'MyApp.view.BuyForm', 'MyApp.view.Grid' ],
 
     layout: {
-        type: 'border',
+        type: 'border'
     },
 
 	items: [{
@@ -13,8 +13,8 @@ Ext.define('MyApp.view.ContainerExtender', {
         xtype: 'panel',
         collapsed: false,
         collapsible: true,
-        height: 130,
         margin: '10 30 10 30',
+        bodyPadding: 10,
         flex: 2,
         items: [{
             xtype: 'fieldcontainer',
@@ -22,11 +22,9 @@ Ext.define('MyApp.view.ContainerExtender', {
             defaultType: 'checkboxfield',
             items: [{
                 boxLabel: 'Sell',
-                inputValue: '1',
                 itemId: 'checkbox1'
             }, {
                 boxLabel: 'Buy',
-                inputValue: '2',
                 itemId: 'checkbox2'
             }, {
                 xtype: 'button',
@@ -40,6 +38,7 @@ Ext.define('MyApp.view.ContainerExtender', {
         xtype: 'panel',
         collapsible: false,
         margin: '0 30 10 30',
+        bodyPadding: 3,
         flex: 4,
         items: [{
             xtype: 'image',
@@ -47,10 +46,12 @@ Ext.define('MyApp.view.ContainerExtender', {
         },  {
             xtype: 'sellForm',
             title: 'Sell',
+            border: 0,
             hidden: true
         }, {
             xtype: 'buyForm',
             title: 'Buy',
+            border: 0,
             hidden: true
         }],
     },  {

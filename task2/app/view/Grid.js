@@ -31,5 +31,5 @@ Ext.define('MyApp.view.Grid', {
             renderer: Ext.util.Format.numberRenderer('0,0.00'),
             flex: 1
         },
-    ],
+    ]
 });

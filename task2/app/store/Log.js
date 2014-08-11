@@ -1,12 +1,14 @@
 Ext.define('MyApp.store.Log', {
 	extend: 'Ext.data.Store',
 	model: 'MyApp.model.Log',
+    autoLoad: true,
 	proxy : {
         type : 'ajax',
-        url: 'data/log.json',
+        api: {
+            read: 'data/log.json',
+        },        
         reader : {
             root : 'data'
         }
-    },
-    autoLoad: true,
+    }
 });
