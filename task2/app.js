@@ -1,7 +1,7 @@
 Ext.application({
     name: 'MyApp',
     requires: [ 'MyApp.view.ContainerExtender' ],
-    controllers: [ 'Currency' ],
+    controllers: [ 'Events' ],
 
     launch: function() {
 

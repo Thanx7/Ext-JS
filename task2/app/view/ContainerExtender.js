@@ -22,48 +22,15 @@ Ext.define('MyApp.view.ContainerExtender', {
             items: [{
                 boxLabel: 'Sell',
                 inputValue: '1',
-                itemId: 'checkbox1',
-                handler: function(field, value) {
-                    var top = field.up().up().up();
-                    if (value) {
-                        top.down('sellForm').show();
-                        top.down('#checkbox2').setDisabled(true);
-                        top.down('image').hide();
-                    } else {
-                        top.down('sellForm').hide();
-                        top.down('#checkbox2').setDisabled(false);
-                        top.down('image').show();
-                    }
-                }
+                itemId: 'checkbox1'
             }, {
                 boxLabel: 'Buy',
                 inputValue: '2',
-                itemId: 'checkbox2',
-                handler: function(field, value) {
-                    var top = field.up().up().up();
-                    if (value) {
-                        top.down('buyForm').show();
-                        top.down('#checkbox1').setDisabled(true);
-                        top.down('image').hide();
-                    } else {
-                        top.down('buyForm').hide();
-                        top.down('#checkbox1').setDisabled(false);
-                        top.down('image').show();
-                    }
-                }
+                itemId: 'checkbox2'
             }, {
                 xtype: 'button',
                 text: 'View operations',
-                handler: function(e) {
-                    var top = e.up().up().up();
-                    if (e.getText() == 'View operations') {
-                        top.down('grid').show();
-                        e.setText('Hide operations');
-                    } else {
-                        top.down('grid').hide();
-                        e.setText('View operations');
-                    }
-                }
+                itemId: 'viewButton'
             }]
         }]
     },  {
