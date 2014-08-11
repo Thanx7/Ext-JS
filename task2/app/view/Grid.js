@@ -28,6 +28,7 @@ Ext.define('MyApp.view.Grid', {
         }, {
             text: 'Result sum',
             dataIndex: 'result',
+            renderer: Ext.util.Format.numberRenderer('0,0.00'),
             flex: 1
         },
     ],
