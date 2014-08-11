@@ -1,0 +1,18 @@
+{"data":[
+	{
+		"operation": "EUR",
+		"date": "08/05/2014",
+		"type": "Buy",
+		"amount": "20",
+		"rate": "30",
+		"result": "600"
+	},
+	{
+		"operation": "USD",
+		"date": "03/04/2014",
+		"type": "Sell",
+		"amount": "10",
+		"rate": "10000",
+		"result": "100000"
+	}
+]}
