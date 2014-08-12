@@ -1,4 +1,0 @@
-http://metanit.com/web/extjs/2.3.php
-\\epbygomw0026\ExtJS training\
-\\EPBYGOMW0026\ExtJS training\
-http://examples.ext.net/#/Form/DropDownField/Overview/
