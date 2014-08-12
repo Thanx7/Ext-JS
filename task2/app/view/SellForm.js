@@ -2,13 +2,12 @@ Ext.define('MyApp.view.SellForm', {
     extend: 'Ext.form.Panel',
     alias: 'widget.sellForm',
     requires: [ 'MyApp.store.Currency' ],
-    trackResetOnLoad: false,
 
     items: [{
         xtype: 'numberfield',
         fieldLabel: 'amount',
         itemId: 'sellAmount',
-        value: '0',
+        value: 0,
         minValue: 0,
         margin: '3 0 0 10'
     },{
@@ -26,12 +25,14 @@ Ext.define('MyApp.view.SellForm', {
         fieldLabel: 'rate',
         itemId: 'sellRate',
         value: '0',
+        renderer: Ext.util.Format.numberRenderer('0,0.00'),
         margin: '3 0 0 10'
     }, {
         xtype: 'displayfield',
         fieldLabel: 'result sum',
         itemId: 'sellResult',
         value: '0',
+        renderer: Ext.util.Format.numberRenderer('0,0.00'),
         margin: '3 0 0 10'
     }, {
         xtype: 'button',
@@ -48,17 +49,16 @@ Ext.define('MyApp.view.SellForm', {
             var form = btn.up(); 
             var top = form.up().up();
             var st = top.down('grid').getStore();
-            var newModel = Ext.ModelManager.create({
-                operation: operation,
-                date: new Date(),
-                type: "Sell",
-                amount: amount,
-                rate: rate,
-                result: result
-            }, 'MyApp.model.Log');
 
             if (result !== 0) {
-                st.add(newModel);
+                st.add({
+                    operation: operation,
+                    date: new Date(),
+                    type: "Sell",
+                    amount: amount,
+                    rate: rate,
+                    result: result
+                });
             }
 
             form.hide();
@@ -78,21 +78,16 @@ Ext.define('MyApp.view.SellForm', {
         });
 
         me.down('combo').addListener('change', function(combo, newvalue, oldvalue) {
-            if (newvalue === 0) {
-                operation = "USD";
-                rate = 10350;
-            }
-            if (newvalue === 1) {
-                operation = "EUR";
-                rate = 13860;
-            }
-            if (newvalue === 2) {
-                operation = "RUR";
-                rate = 284.50;
-            }
-            result = me.down('#sellAmount').getValue() * rate;
-            me.down('#sellRate').setValue(rate);
-            me.down('#sellResult').setValue(result);
+            var st = Ext.create('MyApp.store.Currency').load();
+            st.on({
+                'load': function (store, records, successful) {
+                    var currencyRawData = store.getProxy().getReader().rawData;
+                    operation = currencyRawData['data'][newvalue]['currency'];
+                    rate = currencyRawData['data'][newvalue]['rate'];
+                    result = me.down('#sellAmount').getValue() * rate;
+                    me.down('#sellRate').setValue(rate);
+                    me.down('#sellResult').setValue(result);
+            }});
         });
     }
 });

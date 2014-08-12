@@ -1,17 +1,17 @@
-{
-"data":[
+{"data":[
 	{
 		"id": "0",
-		"currency": "USD"
+		"currency": "USD",
+		"rate": "10350"
 	},
 	{
 		"id": "1",
-		"currency": "EUR"
+		"currency": "EUR",
+		"rate": "13860"
 	},
 	{
 		"id": "2",
-		"currency": "RUR"
+		"currency": "RUR",
+		"rate": "284.50"
 	}
-],
-"success": true
-}
+]}

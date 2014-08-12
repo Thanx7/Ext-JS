@@ -42,7 +42,7 @@ Ext.define('MyApp.view.ContainerExtender', {
         flex: 4,
         items: [{
             xtype: 'image',
-            src: 'resources/images/welcome_hey.jpg',
+            src: 'resources/images/welcome_hey.jpg'
         },  {
             xtype: 'sellForm',
             title: 'Sell',
@@ -53,7 +53,7 @@ Ext.define('MyApp.view.ContainerExtender', {
             title: 'Buy',
             border: 0,
             hidden: true
-        }],
+        }]
     },  {
         title: 'View operations',
         region: 'south',

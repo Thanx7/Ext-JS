@@ -5,7 +5,7 @@ Ext.define('MyApp.store.Log', {
 	proxy : {
         type : 'ajax',
         api: {
-            read: 'data/log.json',
+            read: 'data/log.json'
         },        
         reader : {
             root : 'data'
