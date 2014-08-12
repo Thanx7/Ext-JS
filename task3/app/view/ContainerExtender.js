@@ -2,7 +2,6 @@ Ext.define('MyApp.view.ContainerExtender', {
     extend: 'Ext.container.Container',
     alias: 'widget.containerExtender',
     requires: [ 'MyApp.view.SellForm', 'MyApp.view.BuyForm', 'MyApp.view.Grid' ],
-
     layout: {
         type: 'border'
     },
