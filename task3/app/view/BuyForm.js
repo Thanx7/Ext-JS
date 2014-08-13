@@ -28,13 +28,11 @@ Ext.define('MyApp.view.BuyForm', {
         margin: '3 0 0 10'
     }, {
         xtype: 'combo',
+        store: Ext.create('MyApp.store.Currency'),
         itemId: 'buyCombo',
         fieldLabel: 'Currency',
-        store: Ext.create('MyApp.store.Currency'),
         displayField: 'currency',
         valueField: 'id',
-        autoSelect: true,
-        forceSelection: true,
         margin: '3 0 0 10'
     }, {
         xtype: 'displayfield',
@@ -97,16 +95,15 @@ Ext.define('MyApp.view.BuyForm', {
         });
 
         me.down('combo').addListener('change', function(combo, newvalue, oldvalue) {
-            var st = Ext.create('MyApp.store.Currency').load();
-            st.on({
-                'load': function (store, records, successful) {
-                    var currencyRawData = store.getProxy().getReader().rawData;
-                    operation = currencyRawData['data'][newvalue]['currency'];
-                    rate = currencyRawData['data'][newvalue]['rate'];
-                    result = me.down('#buyAmount').getValue() * rate;
-                    me.down('#buyRate').setValue(rate);
-                    me.down('#buyResult').setValue(result);
-            }});
+            if (newvalue !== '') {
+                var st = combo.getStore();
+                var currencyRawData = st.getProxy().getReader().rawData;
+                operation = currencyRawData['data'][newvalue]['currency'];
+                rate = currencyRawData['data'][newvalue]['rate'];
+                result = me.down('#buyAmount').getValue() * rate;
+                me.down('#buyRate').setValue(rate);
+                me.down('#buyResult').setValue(result);
+            }
         });
     }
 });

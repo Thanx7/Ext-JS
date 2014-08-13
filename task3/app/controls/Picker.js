@@ -3,21 +3,28 @@ Ext.define('MyApp.controls.Picker', {
 	alias: 'widget.picker',
 
     width: 320,
-    fieldLabel: 'Currency',
 
     createPicker: function() {
-        picker = new Ext.create('Ext.grid.Panel', {
-            floating: true,
-		    store: Ext.create('MyApp.store.Currency').load(),
-		    columns: [
-		        {text: 'Currency',  dataIndex: 'currency'},
-		        {text: 'Rate',  dataIndex: 'rate', flex: 1}
-		    ],
+        picker = new Ext.create('Ext.container.Container', {
+            extend: 'Ext.Component',
+            store: Ext.create('MyApp.store.Currency'),
+
+            itemTpl: Ext.create('Ext.XTemplate',
+                '<div>qwerty</div>'
+            ),
+
+            constructor: function(params) {
+                var me = this;
+                me.callParent(arguments);
+                me.initConfig(params);
+            },
+            
+            applyLink: function(link) {
+                var me = this;
+                me.update(link);
+                return link;
+            },
     		listeners: {
-            	cellclick: function(view, element, index, record){
-                	    Ext.Msg.alert('Selected Record', record.get('currency') + " " + record.get('rate'));
-                	    this.hide();
-	        	}
 	        }
         });
         return picker;

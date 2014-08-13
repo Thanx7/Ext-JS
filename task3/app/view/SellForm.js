@@ -1,7 +1,7 @@
 Ext.define('MyApp.view.SellForm', {
     extend: 'Ext.form.Panel',
     alias: 'widget.sellForm',
-    requires: [ 'MyApp.store.Currency', 'MyApp.controls.Picker' ],
+    requires: [ 'MyApp.store.Currency'/*, 'MyApp.controls.Picker' */],
 
     items: [{
         xtype: 'numberfield',
@@ -11,15 +11,13 @@ Ext.define('MyApp.view.SellForm', {
         minValue: 0,
         margin: '3 0 0 10'
     },{
-        xtype: 'picker',
-        itemId: 'sellCombo',
-        /*xtype: 'combo',
-        fieldLabel: 'Currency',
+        //xtype: 'picker',
+        xtype: 'combo',
         store: Ext.create('MyApp.store.Currency'),
+        itemId: 'sellCombo',
+        fieldLabel: 'Currency',
         displayField: 'currency',
         valueField: 'id',
-        autoSelect: true,
-        forceSelection: true,*/
         margin: '3 0 0 10'
     }, {
         xtype: 'displayfield',
@@ -78,17 +76,16 @@ Ext.define('MyApp.view.SellForm', {
             me.down('#sellResult').setValue(result);
         });
 
-        me.down('picker').addListener('change', function(combo, newvalue, oldvalue) {
-            var st = Ext.create('MyApp.store.Currency').load();
-            st.on({
-                'load': function (store, records, successful) {
-                    var currencyRawData = store.getProxy().getReader().rawData;
-                    operation = currencyRawData['data'][newvalue]['currency'];
-                    rate = currencyRawData['data'][newvalue]['rate'];
-                    result = me.down('#sellAmount').getValue() * rate;
-                    me.down('#sellRate').setValue(rate);
-                    me.down('#sellResult').setValue(result);
-            }});
+        me.down('combo').addListener('change', function(combo, newvalue, oldvalue) {
+            if (newvalue !== '') {
+                var st = combo.getStore();
+                var currencyRawData = st.getProxy().getReader().rawData;
+                operation = currencyRawData['data'][newvalue]['currency'];
+                rate = currencyRawData['data'][newvalue]['rate'];
+                result = me.down('#sellAmount').getValue() * rate;
+                me.down('#sellRate').setValue(rate);
+                me.down('#sellResult').setValue(result);
+            }
         });
     }
 });
