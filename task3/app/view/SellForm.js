@@ -13,11 +13,19 @@ Ext.define('MyApp.view.SellForm', {
     },{
         //xtype: 'picker',
         xtype: 'combo',
-        store: Ext.create('MyApp.store.Currency'),
-        itemId: 'sellCombo',
+        tpl: Ext.create('Ext.XTemplate',
+            '<tpl for=".">',
+                '<div class="x-boundlist-item">',
+                    '{currency} - {rate}',
+                '</div>',
+            '</tpl>'
+        ),
         fieldLabel: 'Currency',
         displayField: 'currency',
+        multiSelect: false,
+        store: Ext.create('MyApp.store.Currency'),
         valueField: 'id',
+        itemId: 'sellCombo',
         margin: '3 0 0 10'
     }, {
         xtype: 'displayfield',
