@@ -1,16 +1,18 @@
 Ext.define('MyApp.controls.Picker', {
 	extend: 'Ext.form.field.Picker',
 	alias: 'widget.picker',
-
-    width: 320,
+    requires: [ 'MyApp.store.Currency' ],
 
     createPicker: function() {
         picker = new Ext.create('Ext.container.Container', {
             extend: 'Ext.Component',
             store: Ext.create('MyApp.store.Currency'),
-
-            itemTpl: Ext.create('Ext.XTemplate',
-                '<div>qwerty</div>'
+            tpl: Ext.create('Ext.XTemplate',
+                '<tpl for=".">',
+                    '<div class="x-boundlist-item">',
+                        '{currency} - {rate}',
+                    '</div>',
+                '</tpl>'
             ),
 
             constructor: function(params) {
@@ -23,9 +25,9 @@ Ext.define('MyApp.controls.Picker', {
                 var me = this;
                 me.update(link);
                 return link;
-            },
+            }/*,
     		listeners: {
-	        }
+	        }*/
         });
         return picker;
     }

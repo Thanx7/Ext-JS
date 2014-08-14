@@ -1,7 +1,7 @@
 Ext.define('MyApp.view.SellForm', {
     extend: 'Ext.form.Panel',
     alias: 'widget.sellForm',
-    requires: [ 'MyApp.store.Currency'/*, 'MyApp.controls.Picker' */],
+    requires: [ 'MyApp.store.Currency', 'MyApp.controls.Picker' ],
 
     items: [{
         xtype: 'numberfield',
@@ -11,15 +11,7 @@ Ext.define('MyApp.view.SellForm', {
         minValue: 0,
         margin: '3 0 0 10'
     },{
-        //xtype: 'picker',
-        xtype: 'combo',
-        tpl: Ext.create('Ext.XTemplate',
-            '<tpl for=".">',
-                '<div class="x-boundlist-item">',
-                    '{currency} - {rate}',
-                '</div>',
-            '</tpl>'
-        ),
+        xtype: 'picker',
         fieldLabel: 'Currency',
         displayField: 'currency',
         multiSelect: false,
@@ -84,7 +76,7 @@ Ext.define('MyApp.view.SellForm', {
             me.down('#sellResult').setValue(result);
         });
 
-        me.down('combo').addListener('change', function(combo, newvalue, oldvalue) {
+        me.down('picker').addListener('change', function(combo, newvalue, oldvalue) {
             if (newvalue !== '') {
                 var st = combo.getStore();
                 var currencyRawData = st.getProxy().getReader().rawData;
